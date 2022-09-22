@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { TodoComponent } from './todo/todo.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -15,12 +16,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    TodoComponent
+    TodoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
