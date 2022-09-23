@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { TodoComponent } from './todo/todo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthorizationService } from './authorization.service';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
-  { path: 'todo', component: TodoComponent}
+  { path: 'users/:id/todo', component: TodoComponent}
 ]
 
 @NgModule({
@@ -25,7 +26,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthorizationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
