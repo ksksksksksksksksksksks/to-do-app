@@ -1,32 +1,34 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { TodoComponent } from './todo/todo.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthorizationService } from './authorization.service';
+import { AuthenticationService } from './authentication.service';
+import { LoginComponent } from './components/login/login.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'users/:id/todo', component: TodoComponent}
-]
+  { path: '', component: LoginComponent },
+  { path: 'users/:id/todo-list', component: TodoListComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    TodoComponent,
+    TodoListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [AuthorizationService],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
