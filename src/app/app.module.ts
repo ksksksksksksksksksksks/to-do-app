@@ -10,6 +10,13 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard }   from './auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatListModule} from '@angular/material/list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatIconModule} from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,7 +36,14 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    DragDropModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatInputModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]
