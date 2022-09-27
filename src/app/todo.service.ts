@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Todo } from './domain/todo';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,18 +11,10 @@ export class TodoService {
 
   todos!: Todo[];
 
-  constructor() { }
+  constructor(private http: HttpClient,
+    private authService: AuthenticationService,) { }
 
-  getTodos(id: number): Todo[] {
-    fetch(`https://dummyjson.com/todos/user/${id}`)
-    .then(res => res.json())
-    .then(res => {
-      for (var key in res) {
-          if (key === 'todos') {
-              this.todos = res[key];
-          }
-      }
-    });
-    return(this.todos);
+  getTodos(id: number) : Observable<any> {
+    return this.http.get<any>(`https://dummyjson.com/todos/user/${id}`)
   }
 }

@@ -25,16 +25,17 @@ export class AuthenticationService {
     }
 
     login(name: string, password: string ) {
-        return this.http.
-        post<any>('https://dummyjson.com/auth/login', {name, password})
+        return this.http
+        .post<any>('https://dummyjson.com/auth/login', {username: name, password})
         .pipe( 
-            map (({token}) => {
+            map (({id}) => {
                 let user: User = {
                   name: name,
-                  token: token,
+                  token: id,
                 };
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.userSubject.next(user);
+                this.id = user.token;
                 return user;
             })
         );

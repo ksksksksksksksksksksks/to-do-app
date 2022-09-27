@@ -8,10 +8,11 @@ import { AuthenticationService } from './authentication.service';
 import { LoginComponent } from './components/login/login.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard }   from './auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'users/:id/todo-list', component: TodoListComponent },
+  { path: 'users/:id/todo-list', component: TodoListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -26,31 +26,16 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-  //   const value = this.form.value;
-    
-  //   if (value.name && value.password) {
-  //     this.authService.login(value.name, value.password)
-  //       .subscribe(
-  //         res => {
-  //           console.log('Login Succesful, id = ', res);
-  //           if (typeof(res) === 'number') {
-  //             this.router.navigateByUrl(`todo-list/users/${res}`);
-  //           }
-  //         }
-  //     );
-  //   }
-  }
-
-  onSubmit() {
     this.authService
       .login(this.form.value.name, this.form.value.password)
       .pipe(first())
       .subscribe({
-        next: () => {
-          this.router.navigate(['']);
+        next: (user) => {
+          this.router.navigateByUrl(`users/${user.token}/todo-list`);
         },
         error: (error) => {
           this.error = error;
+          console.log(this.error);
         },
     });
   }

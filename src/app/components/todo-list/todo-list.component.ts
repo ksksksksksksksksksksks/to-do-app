@@ -18,11 +18,16 @@ export class TodoListComponent implements OnInit {
     private authService: AuthenticationService,
     private todoService: TodoService) {
     this.id = route.snapshot.params['type'];
-    this.todos = this.todoService.getTodos(this.authService.id);
-    console.log(this.todos);
   }
 
   ngOnInit(): void {
+    this.todoService.getTodos(this.authService.id).subscribe( res => {
+      for (var key in res) {
+        if (key === 'todos') {
+            this.todos = res[key];
+        }
+      }
+      console.log(this.todos);
+    });
   }
-
 }
