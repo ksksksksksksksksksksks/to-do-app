@@ -19,6 +19,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {MatCheckboxDefaultOptions, MatCheckboxModule, MAT_CHECKBOX_DEFAULT_OPTIONS} from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditTodoDialogComponent } from './components/edit-todo-dialog/edit-todo-dialog.component';
 
 
 const routes: Routes = [
@@ -30,7 +32,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    TodoListComponent
+    TodoListComponent,
+    EditTodoDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ const routes: Routes = [
     MatIconModule,
     MatInputModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [
     AuthenticationService,

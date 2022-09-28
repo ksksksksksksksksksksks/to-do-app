@@ -7,7 +7,7 @@
 	</button>
 </div>
 
-<mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator>
+<!-- <mat-paginator [length]="todos$.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator> -->
 
 <mat-card class="todo-container">
     <mat-list>
@@ -16,7 +16,7 @@
                 {{todo.todo}}
             </mat-list-item>
             <mat-checkbox (click)="changeStatus(todo)" [checked]="todo.completed"></mat-checkbox>
-			<button class="material-icons" [disabled]="todo.completed">edit</button>
+			<button class="material-icons" [disabled]="todo.completed" (click)="editTodo(todo)">edit</button>
 			<button class="material-icons" (click)="removeTodo(todo)">delete</button>
         </mat-card>
     </mat-list>
