@@ -17,6 +17,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import {MatCheckboxDefaultOptions, MatCheckboxModule, MAT_CHECKBOX_DEFAULT_OPTIONS} from '@angular/material/checkbox';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -43,9 +46,13 @@ const routes: Routes = [
     MatListModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatPaginatorModule
   ],
-  providers: [AuthenticationService],
+  providers: [
+    AuthenticationService,
+    {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

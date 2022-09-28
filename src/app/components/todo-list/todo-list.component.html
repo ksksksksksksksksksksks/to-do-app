@@ -1,29 +1,26 @@
+<div>
+	<mat-form-field>
+		<input matInput placeholder="Add new task" #newtaskinput>
+	</mat-form-field>
+	<button [disabled]="newtaskinput.value === ''" mat-raised-button color="primary" (click)="addTodo(newtaskinput.value); newtaskinput.value = ''">
+		Add
+	</button>
+</div>
+
+<mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator>
+
+<mat-card class="todo-container">
+    <mat-list>
+        <mat-card class="todo-item-container" *ngFor="let todo of obs | async">
+            <mat-list-item  [class.complete]="todo.completed">
+                {{todo.todo}}
+            </mat-list-item>
+            <mat-checkbox (click)="changeStatus(todo)" [checked]="todo.completed"></mat-checkbox>
+			<button class="material-icons" [disabled]="todo.completed">edit</button>
+			<button class="material-icons" (click)="removeTodo(todo)">delete</button>
+        </mat-card>
+    </mat-list>
+</mat-card>
+
 <router-outlet></router-outlet>
-
-<mat-card *ngFor="let task of todos" class="item" >
-    <h3>
-        {{ task.todo }}
-        <span class="close-btn" (click)="removeTodo(task)">
-            &times;
-        </span>
-    </h3> 
-</mat-card>
-
-<mat-form-field>
-	<input matInput placeholder="Add new task" #newtaskinput>
-</mat-form-field>
-<button [disabled]="newtaskinput.value === ''" mat-raised-button color="primary" (click)="addTodo(newtaskinput.value); newtaskinput.value = ''">Add</button>
-<mat-card *ngIf="todos.length > 0">
-	<mat-list>
-		<mat-list-item *ngFor="let task of todos;let i = index">
-			<mat-divider *ngIf="i !== 0"></mat-divider>
-			<mat-slide-toggle (change)="toggle(task)" [checked]="!!todos[i].completed" color="primary">
-				<span [ngClass]="{done:todos[i].completed}">{{task.todo}}</span>
-			</mat-slide-toggle>
-			<button  matTooltip="Delete task" matTooltipPosition="above" mat-icon-button (click)="removeTodo(task)">
-				<mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
-		</button>
-		</mat-list-item>
-	</mat-list>
-</mat-card>
 

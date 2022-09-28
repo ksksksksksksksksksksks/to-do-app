@@ -23,18 +23,19 @@ export class TodoService {
     return this.todos;
   }
 
+  addTodo(todo: string) {
+    if (todo === '') return;
+    this.todos.push({
+      id: 0,
+      todo: todo,
+      completed: false
+    })
+  }
+
   removeTodo(todo: Todo) {
     this.todos.splice(this.todos.indexOf(todo), 1);
   }
 
-  addTodo(title: string) {
-    if (title === '') return;
-    this.todos.push({
-      id: 0,
-      todo: title,
-      completed: false
-    })
-  }
 }
 
 

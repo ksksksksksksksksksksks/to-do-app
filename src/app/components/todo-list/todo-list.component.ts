@@ -1,31 +1,47 @@
-import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { Todo } from 'src/app/domain/todo';
 import { TodoService } from 'src/app/todo.service';
+import { MatTableDataSource } from '@angular/material/table'
+import { Observable } from 'rxjs/internal/Observable';
+
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnDestroy {
 
+  // @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  public obs!: Observable<any>;
   public id!: number;
   public todos: Todo[] = this.todoService.todos;
+  public dataSource: MatTableDataSource<Todo> = new MatTableDataSource<Todo>(this.todos);
   // public task: Todo | null = null;
 
   constructor(private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private todoService: TodoService) {
+    private todoService: TodoService,
+    private changeDetectorRef: ChangeDetectorRef) {
       this.id = route.snapshot.params['type'];
-      this.todos = this.todoService.getTodos();
   }
 
   ngOnInit(): void {
     this.todos = this.todoService.getTodos();
+    this.changeDetectorRef.detectChanges();
+    this.dataSource.paginator = this.paginator;
+    this.obs = this.dataSource.connect();
     console.log(this.todos);
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataSource) { 
+      this.dataSource.disconnect(); 
+    }
   }
 
   // ngOnInit(): void {
@@ -35,20 +51,18 @@ export class TodoListComponent implements OnInit {
   //   });
   // }
 
-  removeTodo(todo: Todo) {
-    this.todoService.removeTodo(todo);
+  addTodo(todo: string) {
+    this.todoService.addTodo(todo);
+  }
+
+  changeStatus(todo: Todo) {
+    this.todos[this.todos.indexOf(todo)].completed = !this.todos[this.todos.indexOf(todo)].completed;
     console.log(this.todoService.todos);
   }
 
-  addTodo(title: string) {
-    this.todoService.addTodo(title);
-  }
-
-  completeTodo(todo: Todo): void {
-  }
-
-  toggle(todo: Todo) {
-    this.todos[this.todos.indexOf(todo)].completed = !this.todos[this.todos.indexOf(todo)].completed;
+  removeTodo(todo: Todo) {
+    this.todoService.removeTodo(todo);
+    console.log(this.todoService.todos);
   }
 
 }
