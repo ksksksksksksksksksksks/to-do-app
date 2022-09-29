@@ -10,33 +10,28 @@ import { AuthenticationService } from './authentication.service';
 export class TodoService {
 
   private todos = new BehaviorSubject<Todo[]>([]);
-  public todos$ = this.todos.asObservable();
 
   constructor(private http: HttpClient,
     private authService: AuthenticationService,) {
-      this.http.get<any>(`https://dummyjson.com/todos/user/${this.authService.id}`).subscribe( res => {
-      this.todos.next(res.todos);
-      console.log(this.todos);
-    });
+      this.http.get<any>(`https://dummyjson.com/todos/user/${this.authService.id}`).subscribe(res => {
+        this.todos.next(res.todos);
+        // console.log(this.todos);
+      });
   }
 
-  // public get todos$(): Observable<Todo[]>  {
-  //   return this.todos.asObservable();
-  // }
-
-  getTodos(): Observable<Todo[]> {
-    return this.todos$;
+  public get todos$(): Observable<Todo[]>  {
+    return this.todos.asObservable();
   }
 
   addTodo(todo: string) {
-    if (todo === '') return;
-    let todos = new Array<Todo>();
-    todos.push({
-      id: 0,
-      todo: todo,
-      completed: false
-    });
-    this.todos.next(todos);
+    // if (todo === '') return;
+    // let todos = new Array<Todo>();
+    // todos.push({
+    //   id: 0,
+    //   todo: todo,
+    //   completed: false
+    // });
+    // this.todos.next(todos);
   }
 
   removeTodo(todo: Todo) {
@@ -46,10 +41,4 @@ export class TodoService {
   updateTodo(index: number, updatedTodo: Todo) {
     // this.todos[index] = updatedTodo;
   }
-
 }
-
-
-  // getTodos(id: number) : Observable<any> {
-  //   return this.http.get<any>(`https://dummyjson.com/todos/user/${id}`);
-  // }

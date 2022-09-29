@@ -7,11 +7,11 @@
 	</button>
 </div>
 
-<!-- <mat-paginator [length]="todos$.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator> -->
+<mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator>
 
 <mat-card class="todo-container">
     <mat-list>
-        <mat-card class="todo-item-container" *ngFor="let todo of obs | async">
+        <mat-card class="todo-item-container" *ngFor="let todo of todoList | async">
             <mat-list-item  [class.complete]="todo.completed">
                 {{todo.todo}}
             </mat-list-item>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthenticationService } from 'src/app/authentication.service';
@@ -7,12 +7,12 @@ import { first } from 'rxjs/internal/operators/first';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
-  public error = '';
 
   constructor(private router: Router,
     private authService: AuthenticationService) { 
@@ -26,17 +26,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService
-      .login(this.form.value.name, this.form.value.password)
-      .pipe(first())
-      .subscribe({
-        next: (user) => {
-          this.router.navigateByUrl(`users/${user.token}/todo-list`);
-        },
-        error: (error) => {
-          this.error = error;
-          console.log(this.error);
-        },
+    this.authService.login(this.form.value.name, this.form.value.password).pipe(first()).subscribe({
+      next: (user) => {
+        this.router.navigateByUrl(`users/${user.token}/todo-list`);
+      },
+      error: (error) => {
+        console.log(error);
+      },
     });
   }
 } 
