@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Todo } from 'src/app/domain/todo';
 import { TodoService } from 'src/app/todo.service';
@@ -9,7 +9,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
 import { User } from 'src/app/domain/user';
 import { AuthenticationService } from 'src/app/authentication.service';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -27,6 +26,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public todos!: Todo[]; 
   public todoList!: Observable<Todo[]>;
   public dataSource!: MatTableDataSource<Todo>;
+  lowValue: number = 0;
+  highValue: number = 20;
 
   constructor(private route: ActivatedRoute,
     private authService: AuthenticationService,
@@ -40,7 +41,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.todoService.todos$.subscribe(todos => {
       this.dataSource = new MatTableDataSource<Todo>(todos);
       this.todos = todos;
@@ -60,7 +60,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   addTodo(todo: string) {
-    this.todoService.addTodo(todo);
+    this.todoService.addTodo(todo, this.authService.id);
   }
 
   changeStatus(todo: Todo) {
@@ -80,9 +80,14 @@ export class TodoListComponent implements OnInit, OnDestroy {
     dialogConfig.data = todo;
     const modalDialog = this.matDialog.open(EditTodoDialogComponent, dialogConfig);
     modalDialog.afterClosed().subscribe(updatedTodo => {
-      if (updatedTodo !== ''){
+      if (updatedTodo !== '') {
         this.todoService.updateTodo(todo, updatedTodo);
       }
     });
   }
+
+  // public getPaginatorData(event: PageEvent): PageEvent {
+  //   // event.pageIndex = 1;
+  //   // return event;
+  // }
 }

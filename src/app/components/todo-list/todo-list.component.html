@@ -9,15 +9,17 @@
 </div>
 
 <mat-card class="todo-container">
-    <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator>
+    <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]"  aria-label="Select page"></mat-paginator>
     <mat-list>
-        <mat-card class="todo-item-container" *ngFor="let todo of todoList | async">
+        <mat-card class="todo-item-container" *ngFor="let todo of todoList | async | slice: lowValue : highValue">
             <mat-list-item  [class.complete]="todo.completed">
                 {{todo.todo}}
             </mat-list-item>
             <mat-checkbox (click)="changeStatus(todo)" [checked]="todo.completed"></mat-checkbox>
-			<button class="material-icons" [disabled]="todo.completed" (click)="editTodo(todo)">edit</button>
-			<button class="material-icons" (click)="removeTodo(todo)">delete</button>
+			<button class="material-icons" [disabled]="todo.completed" (click)="editTodo(todo)" matTooltip="Edit task" aria-label="Edit task">
+                edit
+            </button>
+			<button class="material-icons" (click)="removeTodo(todo)" matTooltip="Delete task" aria-label="Delete task">delete</button>
         </mat-card>
     </mat-list>
 </mat-card>
