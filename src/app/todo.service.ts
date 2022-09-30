@@ -24,21 +24,34 @@ export class TodoService {
   }
 
   addTodo(todo: string) {
-    // if (todo === '') return;
-    // let todos = new Array<Todo>();
-    // todos.push({
-    //   id: 0,
-    //   todo: todo,
-    //   completed: false
-    // });
-    // this.todos.next(todos);
+    if (todo === '') return;
+    let todos = this.todos.getValue();
+    todos.push({
+      id: 0,
+      todo: todo,
+      completed: false
+    });
+    this.todos.next(todos);
+  }
+
+  changeStatus(todo: Todo) {
+    let todos = this.todos.getValue();
+    todos[todos.indexOf(todo)].completed = !todos[todos.indexOf(todo)].completed;
+    this.todos.next(todos);
+    console.log(this.todos.getValue());
   }
 
   removeTodo(todo: Todo) {
-    // this.todos.splice(this.todos.indexOf(todo), 1);
+    let todos = this.todos.getValue();
+    todos.splice(todos.indexOf(todo), 1);
+    this.todos.next(todos);
+    console.log(this.todos.getValue());
   }
 
-  updateTodo(index: number, updatedTodo: Todo) {
-    // this.todos[index] = updatedTodo;
+  updateTodo(todo: Todo, updatedTodo: string) {
+    let todos = this.todos.getValue();
+    todos[todos.indexOf(todo)].todo = updatedTodo;
+    this.todos.next(todos);
+    console.log(this.todos.getValue());
   }
 }

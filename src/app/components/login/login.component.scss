@@ -10,24 +10,22 @@
 
 .login {
     width: 350px;
-    height: 350px;
+    height: 300px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
     background-color: #FFFFFF;
 
     .form {
-        position: relative;
-        width: 100%;
-        height: 100%;
 
         h1 {
             color: #5e96ca;
             font-size: 2.3em;
             justify-content: center;
             display: flex;
-            margin: 40px;
+            margin: 30px;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
         input {
@@ -46,12 +44,12 @@
         button {
             width: 60%;
             height: 40px;
-            margin: 10px auto;
+            margin: 0 auto;
             justify-content: center;
             display: block;
             color: #fff;
             background: #5e96ca;
-            font-size: 1em;
+            font-size: 18px;
             font-weight: bold;
             margin-top: 20px;
             border: none;
@@ -62,7 +60,7 @@
         }
         
         button:hover {
-            background: #00315f;
+            background: #ff4081;
             color: #ffffff;
         }
 

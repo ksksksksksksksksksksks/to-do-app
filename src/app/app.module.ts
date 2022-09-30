@@ -25,7 +25,7 @@ import { EditTodoDialogComponent } from './components/edit-todo-dialog/edit-todo
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'users/:id/todo-list', component: TodoListComponent, canActivate: [AuthGuard] },
+  { path: 'todo-list/users/:id', component: TodoListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

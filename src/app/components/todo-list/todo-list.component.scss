@@ -1,27 +1,42 @@
-:host {
-  background-color: #bfdef3;
-}
-
-div {
+.new-todo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 20px auto;
-  width: 40%;
+  justify-content: left;
+  margin: 40px auto 30px auto;
+  padding: 14px;
+  width: 50%;
+  border: none;
+  border: 2px solid #bfdef3;
+  border-radius: 5px;
+  background-color: #bfdef3;
 
   .mat-form-field {
+    width: 90%;
     min-width: 50%;
     margin-right: 20px;
+
+    ::ng-deep .mat-form-field-label {
+        color: #000 !important;
+    }
+
+    ::ng-deep .mat-form-field-underline {
+      background-color: #000 !important; 
+    }
+    
+    ::ng-deep .mat-form-field-ripple {
+      background-color: #000 !important;
+    }
   }
   
   button {
-    width: 15%;
-    min-width: 50px;
+    width: 80px;
     height: 25px;
-    color: #fff;
-    background: #000e5f;
-    font-size: 1em;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    background: #fff;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     transition: .2s ease-in;
@@ -30,23 +45,27 @@ div {
   }
 
   button:hover {
-    background: #5e96ca;
-    color: #ffffff;
+    background: #ff4081;
+    color: #fff;
   }
 }
 
 .todo-container {
   background-color: #bfdef3;
-  margin-top: 1rem;
-  width: 70%;
-  margin: 0 auto;
+  width: 50%;
+  margin: 30px auto;
+
+  .mat-paginator {
+    background-color: #bfdef3;
+  }
 
   .todo-item-container {
+    background-color: #fff;
     padding: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 5px;
+    margin: 7px;
 
     .material-icons {
       cursor: pointer;
@@ -54,7 +73,6 @@ div {
       border: none;
       padding: 0;
     }
-
   }
 
   .complete {
@@ -62,6 +80,6 @@ div {
   }
 
   .mat-checkbox {
-    color: #3f51b5;
+    margin-right: 5px;
   }
 }

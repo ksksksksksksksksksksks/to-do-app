@@ -5,7 +5,7 @@ import { Todo } from 'src/app/domain/todo';
 import { TodoService } from 'src/app/todo.service';
 import { MatTableDataSource } from '@angular/material/table'
 import { Observable } from 'rxjs/internal/Observable';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
 import { User } from 'src/app/domain/user';
 import { AuthenticationService } from 'src/app/authentication.service';
@@ -32,7 +32,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private todoService: TodoService,
     private changeDetectorRef: ChangeDetectorRef,
-    private dialog: MatDialog) {
+    public matDialog: MatDialog) {
       this.id = route.snapshot.params['type'];
       this.authService.user.subscribe(user => {
         this.currentUser$ = user;
@@ -60,29 +60,29 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   addTodo(todo: string) {
-    // this.todoService.addTodo(todo);
+    this.todoService.addTodo(todo);
   }
 
   changeStatus(todo: Todo) {
-    // this.todos$[this.todos$.indexOf(todo)].completed = !this.todos$[this.todos$.indexOf(todo)].completed;
-    // console.log(this.todoService.todos);
+    this.todoService.changeStatus(todo);
   }
 
   removeTodo(todo: Todo) {
-    // this.todoService.removeTodo(todo);
-    // console.log(this.todoService.todos);
+    this.todoService.removeTodo(todo);
   }
 
   editTodo(todo: Todo) {
-    // let dialogRef = this.dialog.open(EditTodoDialogComponent, {
-    //   width: '700px',
-    //   data: todo
-    // });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.todoService.updateTodo(this.todos$.indexOf(todo), result);
-    //   }
-    // })
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.id = "edit-todo";
+    dialogConfig.height = "window.screen.height";
+    dialogConfig.width = "window.screen.height";
+    dialogConfig.data = todo;
+    const modalDialog = this.matDialog.open(EditTodoDialogComponent, dialogConfig);
+    modalDialog.afterClosed().subscribe(updatedTodo => {
+      if (updatedTodo !== ''){
+        this.todoService.updateTodo(todo, updatedTodo);
+      }
+    });
   }
 }

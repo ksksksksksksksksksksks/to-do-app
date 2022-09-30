@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+    <h1>Edit Todo</h1>
+    <input type="text" value="{{this.data.todo}}" #updatedtodoinput />
+    <div class="container-buttons">
+        <button type="button" (click)="close()">
+            Cancel
+        </button>
+        <button type="submit" [disabled]="updatedtodoinput.value === this.data.todo" (click)="updateTodo(updatedtodoinput.value)">
+            Save
+        </button>
+    </div>
+</div>

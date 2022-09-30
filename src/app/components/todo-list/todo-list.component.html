@@ -1,15 +1,15 @@
-<div>
-	<mat-form-field>
-		<input matInput placeholder="Add new task" #newtaskinput>
-	</mat-form-field>
-	<button [disabled]="newtaskinput.value === ''" mat-raised-button color="primary" (click)="addTodo(newtaskinput.value); newtaskinput.value = ''">
-		Add
-	</button>
+<div class="new-todo">
+    <mat-form-field>
+        <input matInput placeholder="Add new task" #newtaskinput>
+    </mat-form-field>
+    <button [disabled]="newtaskinput.value === ''" mat-raised-button color="primary" (click)="addTodo(newtaskinput.value); newtaskinput.value = ''">
+        <i class="material-icons">add</i>
+        Add
+    </button>
 </div>
 
-<mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator>
-
 <mat-card class="todo-container">
+    <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page"></mat-paginator>
     <mat-list>
         <mat-card class="todo-item-container" *ngFor="let todo of todoList | async">
             <mat-list-item  [class.complete]="todo.completed">
