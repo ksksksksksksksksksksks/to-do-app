@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Todo } from 'src/app/domain/todo';
@@ -19,15 +19,12 @@ import { AuthenticationService } from 'src/app/authentication.service';
 export class TodoListComponent implements OnInit, OnDestroy {
 
   @Input() todo!: Todo;
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public id!: number;
-  public currentUser$!: User;
   public todos!: Todo[]; 
-  public todoList!: Observable<Todo[]>;
+  public todoList$!: Observable<Todo[]>;
   public dataSource!: MatTableDataSource<Todo>;
-  lowValue: number = 0;
-  highValue: number = 20;
+  public currentPageSize!: number;
 
   constructor(private route: ActivatedRoute,
     private authService: AuthenticationService,
@@ -35,9 +32,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     public matDialog: MatDialog) {
       this.id = route.snapshot.params['type'];
-      this.authService.user.subscribe(user => {
-        this.currentUser$ = user;
-      });
   }
 
   ngOnInit(): void {
@@ -45,12 +39,10 @@ export class TodoListComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource<Todo>(todos);
       this.todos = todos;
       this.dataSource.paginator = this.paginator;
-      this.todoList = this.dataSource.connect();
+      this.todoList$ = this.dataSource.connect();
       this.changeDetectorRef.detectChanges();
+      this.currentPageSize = this.paginator.pageSize;
     });
-    
-    // console.log(this.todos$);
-    console.log(this.todoList);
   }
 
   ngOnDestroy(): void {
@@ -86,8 +78,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
     });
   }
 
-  // public getPaginatorData(event: PageEvent): PageEvent {
-  //   // event.pageIndex = 1;
-  //   // return event;
-  // }
+  getPaginatorData(event: PageEvent): PageEvent {
+    if (this.paginator.pageSize !== this.currentPageSize) {
+      this.paginator.firstPage();
+      this.currentPageSize = this.paginator.pageSize;
+    }
+    return event;
+  }
 }

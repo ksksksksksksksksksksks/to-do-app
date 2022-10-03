@@ -14,7 +14,6 @@ function getId(id: number) {
 export class TodoService {
 
   private todos = new BehaviorSubject<Todo[]>([]);
-  public status: string = '';
   public maxId!: number;
 
   constructor(private http: HttpClient,
@@ -41,12 +40,11 @@ export class TodoService {
       userId: userId
     };
     this.http.post(`https://dummyjson.com/todos/add`, body).subscribe(() => {
-      this.status = 'Add successful';
+      console.log('Add successful');
     });
     todos.push(body);
     this.todos.next(todos);
     this.maxId = body.id;
-    console.log(this.todos.getValue());
   }
 
   changeStatus(todo: Todo) {
@@ -55,21 +53,19 @@ export class TodoService {
         completed: !todo.completed
       })
     .subscribe(() => {
-      this.status = 'Change status successful';
+      console.log('Change status successful');
     });
     todo.completed = !todo.completed;
     this.todos.next(todos);
-    console.log(this.todos.getValue());
   }
 
   removeTodo(todo: Todo) {
     let todos = this.todos.getValue();
     this.http.delete(`https://dummyjson.com/todos/${todo.id}`).subscribe(() => {
-      this.status = 'Delete successful'
+      console.log('Delete successful');
     });
     todos.splice(todos.indexOf(todo), 1);
     this.todos.next(todos);
-    console.log(this.todos.getValue());
   }
 
   updateTodo(todo: Todo, updatedTodo: string) {
@@ -78,10 +74,9 @@ export class TodoService {
       todo: updatedTodo
       })
     .subscribe(() => {
-      this.status = 'Update successful';
+      console.log('Update successful');
     });
     todo.todo = updatedTodo;
     this.todos.next(todos);
-    console.log(this.todos.getValue());
   }
 }

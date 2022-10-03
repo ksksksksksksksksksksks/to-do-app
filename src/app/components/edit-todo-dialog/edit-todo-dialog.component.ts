@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TodoListComponent } from '../todo-list/todo-list.component';
 
@@ -7,15 +7,10 @@ import { TodoListComponent } from '../todo-list/todo-list.component';
   templateUrl: './edit-todo-dialog.component.html',
   styleUrls: ['./edit-todo-dialog.component.scss']
 })
-export class EditTodoDialogComponent implements OnInit {
+export class EditTodoDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<TodoListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
-
-    }
-
-  ngOnInit(): void {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   updateTodo(updatedTodo: string) {
     this.dialogRef.close(updatedTodo);
@@ -23,6 +18,5 @@ export class EditTodoDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close('');
-  } 
-
+  }
 }

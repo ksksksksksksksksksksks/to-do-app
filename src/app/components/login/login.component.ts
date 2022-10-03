@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthenticationService } from 'src/app/authentication.service';
@@ -10,7 +10,7 @@ import { first } from 'rxjs/internal/operators/first';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   public form: FormGroup;
 
@@ -20,9 +20,6 @@ export class LoginComponent implements OnInit {
       name: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)  
     });
-  }
-
-  ngOnInit(): void {
   }
 
   login() {

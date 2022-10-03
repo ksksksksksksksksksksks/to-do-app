@@ -9,9 +9,9 @@
 </div>
 
 <mat-card class="todo-container">
-    <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]"  aria-label="Select page"></mat-paginator>
+    <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="getPaginatorData($event)"></mat-paginator>
     <mat-list>
-        <mat-card class="todo-item-container" *ngFor="let todo of todoList | async | slice: lowValue : highValue">
+        <mat-card class="todo-item-container" *ngFor="let todo of todoList$ | async">
             <mat-list-item  [class.complete]="todo.completed">
                 {{todo.todo}}
             </mat-list-item>
