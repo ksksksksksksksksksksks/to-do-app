@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
+// import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from './authentication.service';
-import { LoginComponent } from './components/login/login.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from './auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -17,24 +15,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxDefaultOptions, MatCheckboxModule, MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditTodoDialogComponent } from './components/edit-todo-dialog/edit-todo-dialog.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'todo-list/users/:id', component: TodoListComponent, canActivate: [AuthGuard] },
+  { path: 'todo-list/users/:id', loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule) }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    TodoListComponent,
-    EditTodoDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,

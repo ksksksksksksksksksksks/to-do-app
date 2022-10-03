@@ -4,25 +4,17 @@ import { Todo } from './domain/todo';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 
-function getId(id: number) {
-  return id += 1;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
   private todos = new BehaviorSubject<Todo[]>([]);
-  public maxId!: number;
 
   constructor(private http: HttpClient,
     private authService: AuthenticationService,) {
       this.http.get<any>(`https://dummyjson.com/todos/user/${this.authService.id}`).subscribe(res => {
         this.todos.next(res.todos);
-      });
-      this.http.get<any>(`https://dummyjson.com/todos`).subscribe(res => {
-        this.maxId = res.total;
       });
   }
 
@@ -32,51 +24,51 @@ export class TodoService {
 
   addTodo(todo: string, userId: number) {
     if (todo === '') return;
-    let todos = this.todos.getValue();
-    let body = {
-      id: getId(this.maxId),
-      todo: todo,
-      completed: false,
-      userId: userId
-    };
-    this.http.post(`https://dummyjson.com/todos/add`, body).subscribe(() => {
+    this.http.post(`https://dummyjson.com/todos/add`, { 
+        todo: todo, 
+        completed: false, 
+        userId: userId 
+      })
+    .subscribe((newTodo) => {
+      const todos = this.todos.value.slice();
+      todos.push(<Todo>newTodo);
+      this.todos.next(todos);
       console.log('Add successful');
     });
-    todos.push(body);
-    this.todos.next(todos);
-    this.maxId = body.id;
   }
 
   changeStatus(todo: Todo) {
-    let todos = this.todos.getValue();
     this.http.put(`https://dummyjson.com/todos/${todo.id}`, {
         completed: !todo.completed
       })
-    .subscribe(() => {
+    .subscribe((updatedTodo) => {
+      const todos = this.todos.value.slice();
+      todos[todos.indexOf(todo)].completed = (<Todo>updatedTodo).completed;
+      this.todos.next(todos);
       console.log('Change status successful');
     });
-    todo.completed = !todo.completed;
-    this.todos.next(todos);
   }
 
   removeTodo(todo: Todo) {
-    let todos = this.todos.getValue();
     this.http.delete(`https://dummyjson.com/todos/${todo.id}`).subscribe(() => {
+      const todos = this.todos.value.slice();
+      todos.splice(todos.indexOf(todo), 1);
+      this.todos.next(todos);
       console.log('Delete successful');
     });
-    todos.splice(todos.indexOf(todo), 1);
-    this.todos.next(todos);
+    
   }
 
   updateTodo(todo: Todo, updatedTodo: string) {
-    let todos = this.todos.getValue();
     this.http.put(`https://dummyjson.com/todos/${todo.id}`, {
-      todo: updatedTodo
+        todo: updatedTodo
       })
-    .subscribe(() => {
+    .subscribe((updatedTodo) => {
+      const todos = this.todos.value.slice();
+      todos[todos.indexOf(todo)].todo = (<Todo>updatedTodo).todo;
+      this.todos.next(todos);
       console.log('Update successful');
-    });
-    todo.todo = updatedTodo;
-    this.todos.next(todos);
+    });    
+    console.log(this.todos);
   }
 }

@@ -7,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Observable } from 'rxjs/internal/Observable';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
-import { User } from 'src/app/domain/user';
 import { AuthenticationService } from 'src/app/authentication.service';
 
 @Component({
