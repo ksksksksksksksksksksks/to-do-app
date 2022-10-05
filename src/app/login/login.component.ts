@@ -25,7 +25,7 @@ export class LoginComponent {
   login() {
     this.authService.login(this.form.value.name, this.form.value.password).pipe(first()).subscribe({
       next: (user) => {
-        this.router.navigateByUrl(`todo-list/users/${user.token}`);
+        this.router.navigateByUrl(`todos`);
       },
       error: (error) => {
         console.log(error);

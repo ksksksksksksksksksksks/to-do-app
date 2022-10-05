@@ -18,7 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'todo-list/users/:id', loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule) }
+  { path: 'todos', loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule) }
 ];
 
 @NgModule({
@@ -43,7 +43,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService,
-    {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions}
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions }
   ],
   bootstrap: [AppComponent]
 })

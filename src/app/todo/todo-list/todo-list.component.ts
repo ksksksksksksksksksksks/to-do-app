@@ -19,7 +19,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   @Input() todo!: Todo;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  public id!: number;
   public todos!: Todo[]; 
   public todoList$!: Observable<Todo[]>;
   public dataSource!: MatTableDataSource<Todo>;
@@ -29,9 +28,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private todoService: TodoService,
     private changeDetectorRef: ChangeDetectorRef,
-    public matDialog: MatDialog) {
-      this.id = route.snapshot.params['type'];
-  }
+    public matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.todoService.todos$.subscribe(todos => {
@@ -71,9 +68,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
     dialogConfig.data = todo;
     const modalDialog = this.matDialog.open(EditTodoDialogComponent, dialogConfig);
     modalDialog.afterClosed().subscribe(updatedTodo => {
-      if (updatedTodo !== '') {
-        this.todoService.updateTodo(todo, updatedTodo);
-      }
+      this.todoService.updateTodo(todo, updatedTodo);
     });
   }
 

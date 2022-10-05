@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Todo } from './domain/todo';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';

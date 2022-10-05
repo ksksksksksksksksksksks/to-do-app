@@ -1,10 +1,15 @@
-<h1>Edit Todo</h1>
-<input type="text" value="{{this.data.todo}}" #updatedtodoinput />
-<div class="container-buttons">
-    <button type="button" (click)="close()">
-        Cancel
-    </button>
-    <button type="submit" (click)="updateTodo(updatedtodoinput.value)">
-        Save
-    </button>
+<div class="form" [formGroup]="form" novalidate>
+    <h1>Edit Todo</h1>
+    <input type="text" value="{{this.data.todo}}" formControlName="updatedTodo" />
+     <div class="error" *ngIf="form.invalid && form.touched">
+        You have exceeded the maximum number of 200 characters in this field.
+    </div>
+    <div class="container-buttons">
+        <button type="button" (click)="close()">
+            Cancel
+        </button>
+        <button [disabled]="form.invalid" type="submit" (click)="updateTodo(form.value.updatedTodo)">
+            Save
+        </button>
+    </div>
 </div>

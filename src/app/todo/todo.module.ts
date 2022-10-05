@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditTodoDialogComponent } from './edit-todo-dialog/edit-todo-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
@@ -14,7 +15,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
-  { path: '', component: TodoListComponent, canActivate: [AuthGuard] }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: TodoListComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -33,6 +35,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatPaginatorModule,
     MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class TodoModule { }
