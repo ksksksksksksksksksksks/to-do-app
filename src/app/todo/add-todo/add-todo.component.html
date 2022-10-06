@@ -8,8 +8,15 @@
             Add
         </button>
     </div>
-    <div class="error" *ngIf="newTodo?.errors?.['maxlength']">
-        You have exceeded the maximum number of {{newTodo?.errors?.['maxlength'].requiredLength | json}} characters in this field.
-        You entered {{newTodo?.errors?.['maxlength'].actualLength | json}} character{{newTodo?.errors?.['maxlength'].actualLength | plural}}.
+    <div class="error" *ngIf="newTodo?.errors?.['maxlength']" [ngPlural]="+(newTodo?.errors?.['maxlength'].actualLength | json)">
+        <ng-template ngPluralCase="1">
+            You have exceeded the maximum number of {{newTodo?.errors?.['maxlength'].requiredLength | json}} character in this field.
+            You entered {{newTodo?.errors?.['maxlength'].actualLength | json}} character.
+        </ng-template>
+        <ng-template ngPluralCase="other">
+            You have exceeded the maximum number of {{newTodo?.errors?.['maxlength'].requiredLength | json}} characters in this field.
+            You entered {{newTodo?.errors?.['maxlength'].actualLength | json}} characters.
+        </ng-template>
     </div>
 </div>
+

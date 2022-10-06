@@ -22,12 +22,12 @@ export class AddTodoComponent {
       });
     }
 
-get newTodo() {
-  return this.form.get('newTodo');
-}  
+  get newTodo() {
+    return this.form.get('newTodo');
+  }  
 
   addTodo(todo: string) {
     this.todoService.addTodo(todo, this.authService.id);
-    (<HTMLInputElement>document.querySelector('input')).value = '';
+    this.form.reset();
   }
 }
