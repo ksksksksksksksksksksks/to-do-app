@@ -1,58 +1,8 @@
-.new-todo {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    margin: 40px auto 30px auto;
-    padding: 14px;
-    width: 50%;
-    border: none;
-    border-radius: 5px;
-    background-color: #bfdef3;
-
-    .mat-form-field {
-        width: 90%;
-        min-width: 50%;
-        margin-right: 20px;
-
-        ::ng-deep .mat-form-field-label {
-            color: #000 !important;
-        }
-
-        ::ng-deep .mat-form-field-underline {
-            background-color: #000 !important; 
-        }
-        
-        ::ng-deep .mat-form-field-ripple {
-            background-color: #000 !important;
-        }
-    }
-  
-    button {
-        width: 80px;
-        height: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #000;
-        background: #fff;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-        transition: .2s ease-in;
-        cursor: pointer;
-        text-transform: uppercase;
-    }
-
-    button:hover {
-        background: #ff4081;
-        color: #fff;
-    }
-}
-
 .todo-container {
     background-color: #bfdef3;
     width: 50%;
     margin: 30px auto;
+    min-width: 300px;
 
     .mat-paginator {
         background-color: #bfdef3;
@@ -65,6 +15,15 @@
         flex-direction: row;
         align-items: center;
         margin: 7px;
+
+        .mat-list-item {
+            min-height: 48px;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: left;
+        }
 
         .material-icons {
             cursor: pointer;

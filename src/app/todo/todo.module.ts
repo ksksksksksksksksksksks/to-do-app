@@ -13,6 +13,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
+import { AddTodoComponent } from './add-todo/add-todo.component';
+import { CustomPluralPipe } from './plural.pipe';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,6 +25,8 @@ const routes: Routes = [
   declarations: [
     TodoListComponent,
     EditTodoDialogComponent,
+    AddTodoComponent,
+    CustomPluralPipe
   ],
   imports: [
     RouterModule.forChild(routes),

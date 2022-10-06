@@ -1,12 +1,4 @@
-<div class="new-todo">
-    <mat-form-field>
-        <input matInput placeholder="Add new task" #newtaskinput>
-    </mat-form-field>
-    <button [disabled]="newtaskinput.value === ''" mat-raised-button color="primary" (click)="addTodo(newtaskinput.value); newtaskinput.value = ''">
-        <i class="material-icons">add</i>
-        Add
-    </button>
-</div>
+<app-add-todo></app-add-todo>
 
 <mat-card class="todo-container">
     <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="getPaginatorData($event)"></mat-paginator>

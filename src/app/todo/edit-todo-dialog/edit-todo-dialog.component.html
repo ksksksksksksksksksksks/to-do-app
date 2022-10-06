@@ -1,8 +1,12 @@
 <div class="form" [formGroup]="form" novalidate>
     <h1>Edit Todo</h1>
-    <input type="text" value="{{this.data.todo}}" formControlName="updatedTodo" />
-     <div class="error" *ngIf="form.invalid && form.touched">
-        You have exceeded the maximum number of 200 characters in this field.
+    <input type="text" formControlName="updatedTodo" />
+    <div class="error" *ngIf="updatedTodo?.errors?.['maxlength']">
+        You have exceeded the maximum number of {{updatedTodo?.errors?.['maxlength'].requiredLength | json}} characters in this field.
+        You entered {{updatedTodo?.errors?.['maxlength'].actualLength | json}} character{{updatedTodo?.errors?.['maxlength'].actualLength | plural}}.
+    </div>
+    <div class="error" *ngIf="updatedTodo?.errors?.['required']">
+        This field is required.
     </div>
     <div class="container-buttons">
         <button type="button" (click)="close()">
@@ -13,3 +17,6 @@
         </button>
     </div>
 </div>
+
+
+    

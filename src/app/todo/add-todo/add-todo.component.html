@@ -1,0 +1,15 @@
+<div class="add-todo">
+    <div class="new-todo" [formGroup]="form" novalidate>
+        <mat-form-field>
+            <input matInput placeholder="Add new task" formControlName="newTodo">
+        </mat-form-field>
+        <button [disabled]="form.invalid" mat-raised-button color="primary" (click)="addTodo(form.value.newTodo)">
+            <i class="material-icons">add</i>
+            Add
+        </button>
+    </div>
+    <div class="error" *ngIf="newTodo?.errors?.['maxlength']">
+        You have exceeded the maximum number of {{newTodo?.errors?.['maxlength'].requiredLength | json}} characters in this field.
+        You entered {{newTodo?.errors?.['maxlength'].actualLength | json}} character{{newTodo?.errors?.['maxlength'].actualLength | plural}}.
+    </div>
+</div>

@@ -23,7 +23,6 @@ export class TodoService {
   }
 
   addTodo(todo: string, userId: number) {
-    if (todo === '') return;
     this.http.post(`https://dummyjson.com/todos/add`, { 
         todo: todo, 
         completed: false, 

@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TodoListComponent } from '../todo-list/todo-list.component';
+
 
 @Component({
   selector: 'app-edit-todo-dialog',
@@ -15,14 +16,17 @@ export class EditTodoDialogComponent {
   constructor(public dialogRef: MatDialogRef<TodoListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { 
       this.form = new FormGroup({
-        updatedTodo: new FormControl('', [
+        updatedTodo: new FormControl(this.data.todo, [
           Validators.required,
           Validators.maxLength(200)
         ]) 
       });
-      console.log(this.data.todo);
     }
 
+  get updatedTodo() {
+    return this.form.get('updatedTodo');
+  }
+  
   updateTodo(updatedTodo: string) {
     this.dialogRef.close(updatedTodo);
   }
