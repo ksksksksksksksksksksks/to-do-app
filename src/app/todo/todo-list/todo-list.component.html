@@ -1,4 +1,4 @@
-<app-add-todo></app-add-todo>
+<app-add-todo (newTodoEvent)="addTodo($event)"></app-add-todo>
 
 <mat-card class="todo-container">
     <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="getPaginatorData($event)"></mat-paginator>

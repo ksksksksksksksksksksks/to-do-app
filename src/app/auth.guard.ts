@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate{
 
   constructor(private authService: AuthenticationService) { }
  
-  canActivate() : boolean {
+  canActivate(): boolean {
     return !!this.authService.id;
   }
 }

@@ -1,15 +1,11 @@
 <div class="form" [formGroup]="form" novalidate>
     <h1>Edit Todo</h1>
     <input type="text" formControlName="updatedTodo" />
-    <div class="error" *ngIf="updatedTodo?.errors?.['maxlength']" [ngPlural]="+(updatedTodo?.errors?.['maxlength'].actualLength | json)">
-        <ng-template ngPluralCase="1">
-            You have exceeded the maximum number of {{updatedTodo?.errors?.['maxlength'].requiredLength | json}} character in this field.
-            You entered {{updatedTodo?.errors?.['maxlength'].actualLength | json}} character.
-        </ng-template>
-        <ng-template ngPluralCase="other">
-            You have exceeded the maximum number of {{updatedTodo?.errors?.['maxlength'].requiredLength | json}} characters in this field.
-            You entered {{updatedTodo?.errors?.['maxlength'].actualLength | json}} characters.
-        </ng-template>
+    <div class="error" *ngIf="updatedTodo?.errors?.['maxlength']">
+        You have exceeded the maximum number of {{updatedTodo?.errors?.['maxlength'].requiredLength}} 
+        {updatedTodo?.errors?.['maxlength'].actualLength, plural, =1 {character} other {characters}} in this field.
+        You entered {{updatedTodo?.errors?.['maxlength'].actualLength}} 
+        {updatedTodo?.errors?.['maxlength'].actualLength, plural, =1 {character} other {characters}}.
     </div>
     <div class="error" *ngIf="updatedTodo?.errors?.['required']">
         This field is required.

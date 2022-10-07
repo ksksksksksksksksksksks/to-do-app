@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Observable } from 'rxjs/internal/Observable';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
+import { AuthenticationService } from 'src/app/authentication.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -23,6 +24,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   public currentPageSize!: number;
 
   constructor(private todoService: TodoService,
+    private authService: AuthenticationService,
     private changeDetectorRef: ChangeDetectorRef,
     public matDialog: MatDialog) { }
 
@@ -49,6 +51,10 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   removeTodo(todo: Todo) {
     this.todoService.removeTodo(todo);
+  }
+
+  addTodo(newTodo: string) {
+    this.todoService.addTodo(newTodo, this.authService.id);
   }
 
   editTodo(todo: Todo) {

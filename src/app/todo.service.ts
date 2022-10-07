@@ -18,7 +18,7 @@ export class TodoService {
       });
   }
 
-  public get todos$(): Observable<Todo[]>  {
+  public get todos$(): Observable<Todo[]> {
     return this.todos.asObservable();
   }
 
@@ -31,16 +31,15 @@ export class TodoService {
     .subscribe((newTodo) => {
       const todos = this.todos.value.slice();
       todos.push(<Todo>newTodo);
-      todos[todos.indexOf(<Todo>newTodo)].fakeapi = true;
+      todos[todos.indexOf(<Todo>newTodo)].fakeApi = true;
       this.todos.next(todos);
       console.log('Add successful');
-      console.log(this.todos);
     });
   }
 
   changeStatus(todo: Todo) {
     const todos = this.todos.value.slice();
-    if (todos[todos.indexOf(todo)].fakeapi === true){
+    if (todos[todos.indexOf(todo)].fakeApi === true) {
       todos[todos.indexOf(todo)].completed = !todo.completed;
       this.todos.next(todos);
       console.log('Change status successful');
@@ -50,36 +49,32 @@ export class TodoService {
           completed: !todo.completed
         })
       .subscribe((updatedTodo) => {
-        if (todos.indexOf(todo) !== -1) {
-          todos[todos.indexOf(todo)].completed = (<Todo>updatedTodo).completed;
-          this.todos.next(todos);
-          console.log('Change status successful');
-        }
+        todos[todos.indexOf(todo)].completed = (<Todo>updatedTodo).completed;
+        this.todos.next(todos);
+        console.log('Change status successful');
       });
     }  
   }
 
   removeTodo(todo: Todo) {
     const todos = this.todos.value.slice();
-    if (todos[todos.indexOf(todo)].fakeapi === true){
+    if (todos[todos.indexOf(todo)].fakeApi === true) {
       todos.splice(todos.indexOf(todo), 1);
       this.todos.next(todos);
       console.log('Delete successful');
     }
     else {
       this.http.delete(`https://dummyjson.com/todos/${todo.id}`).subscribe(() => {
-        if (todos.indexOf(todo) !== -1) {
-          todos.splice(todos.indexOf(todo), 1);
-          this.todos.next(todos);
-          console.log('Delete successful');
-        }
+        todos.splice(todos.indexOf(todo), 1);
+        this.todos.next(todos);
+        console.log('Delete successful');
       });
     }
   }
 
   updateTodo(todo: Todo, updatedTodo: string) {
     const todos = this.todos.value.slice();
-    if (todos[todos.indexOf(todo)].fakeapi === true){
+    if (todos[todos.indexOf(todo)].fakeApi === true) {
       todos[todos.indexOf(todo)].todo = updatedTodo;
       this.todos.next(todos);
       console.log('Update successful');
@@ -89,11 +84,9 @@ export class TodoService {
         todo: updatedTodo
       })
       .subscribe((updatedTodo) => {
-        if (todos.indexOf(todo) !== -1) {
-          todos[todos.indexOf(todo)].todo = (<Todo>updatedTodo).todo;
-          this.todos.next(todos);
-          console.log('Update successful');
-        }
+        todos[todos.indexOf(todo)].todo = (<Todo>updatedTodo).todo;
+        this.todos.next(todos);
+        console.log('Update successful');
       });
     }
   }
