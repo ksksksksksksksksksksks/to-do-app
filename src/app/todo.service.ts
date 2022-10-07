@@ -39,7 +39,7 @@ export class TodoService {
 
   changeStatus(todo: Todo) {
     const todos = this.todos.value.slice();
-    if (todos[todos.indexOf(todo)].fakeApi === true) {
+    if (todos[todos.indexOf(todo)].fakeApi) {
       todos[todos.indexOf(todo)].completed = !todo.completed;
       this.todos.next(todos);
       console.log('Change status successful');
@@ -58,7 +58,7 @@ export class TodoService {
 
   removeTodo(todo: Todo) {
     const todos = this.todos.value.slice();
-    if (todos[todos.indexOf(todo)].fakeApi === true) {
+    if (todos[todos.indexOf(todo)].fakeApi) {
       todos.splice(todos.indexOf(todo), 1);
       this.todos.next(todos);
       console.log('Delete successful');
@@ -74,7 +74,7 @@ export class TodoService {
 
   updateTodo(todo: Todo, updatedTodo: string) {
     const todos = this.todos.value.slice();
-    if (todos[todos.indexOf(todo)].fakeApi === true) {
+    if (todos[todos.indexOf(todo)].fakeApi) {
       todos[todos.indexOf(todo)].todo = updatedTodo;
       this.todos.next(todos);
       console.log('Update successful');
