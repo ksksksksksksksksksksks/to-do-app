@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Todo } from 'src/app/domain/todo';
-import { TodoService } from 'src/app/todo.service';
 import { MatTableDataSource } from '@angular/material/table'
 import { Observable } from 'rxjs/internal/Observable';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
-import { AuthenticationService } from 'src/app/authentication.service';
+import { TodoService } from 'src/app/services/todo.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -35,7 +35,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
       this.todoList$ = this.dataSource.connect();
       this.changeDetectorRef.detectChanges();
-      this.currentPageSize = this.paginator.pageSize;
+      this.currentPageSize = this.paginator?.pageSize;
     });
   }
 

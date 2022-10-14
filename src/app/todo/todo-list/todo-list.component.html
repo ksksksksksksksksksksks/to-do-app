@@ -1,20 +1,29 @@
+<div *appUnless="(todoList$ | async)?.length !== 0" class="first-todo">
+    <div>
+        <h1>Add your first todo</h1>
+        What do you want to get done today?
+    </div>
+</div>
+
 <app-add-todo (newTodoEvent)="addTodo($event)"></app-add-todo>
 
-<mat-card class="todo-container">
-    <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="getPaginatorData($event)"></mat-paginator>
-    <mat-list>
-        <mat-card class="todo-item-container" *ngFor="let todo of todoList$ | async">
-            <mat-list-item  [class.complete]="todo.completed">
-                {{todo.todo}}
-            </mat-list-item>
-            <mat-checkbox (click)="changeStatus(todo)" [checked]="todo.completed"></mat-checkbox>
-			<button class="material-icons" [disabled]="todo.completed" (click)="editTodo(todo)" matTooltip="Edit task" aria-label="Edit task">
-                edit
-            </button>
-			<button class="material-icons" (click)="removeTodo(todo)" matTooltip="Delete task" aria-label="Delete task">delete</button>
-        </mat-card>
-    </mat-list>
-</mat-card>
+<div *appUnless="(todoList$ | async)?.length === 0">
+    <mat-card class="todo-container">
+        <mat-paginator [length]="todos.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="getPaginatorData($event)"></mat-paginator>
+        <mat-list>
+            <mat-card class="todo-item-container" *ngFor="let todo of todoList$ | async">
+                <mat-list-item  [class.complete]="todo.completed">
+                    {{todo.todo}}
+                </mat-list-item>
+                <mat-checkbox (click)="changeStatus(todo)" [checked]="todo.completed"></mat-checkbox>
+                <button class="material-icons" [disabled]="todo.completed" (click)="editTodo(todo)" matTooltip="Edit task" aria-label="Edit task">
+                    edit
+                </button>
+                <button class="material-icons" (click)="removeTodo(todo)" matTooltip="Delete task" aria-label="Delete task">delete</button>
+            </mat-card>
+        </mat-list>
+    </mat-card>
+</div>
 
 <router-outlet></router-outlet>
 

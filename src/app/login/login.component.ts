@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { AuthenticationService } from 'src/app/authentication.service';
 import { first } from 'rxjs/internal/operators/first';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
