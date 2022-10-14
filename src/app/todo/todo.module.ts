@@ -14,7 +14,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
 import { AddTodoComponent } from './add-todo/add-todo.component';
-import { UnlessDirective } from '../unless.directive';
+import { UnlessDirective } from '../directives/unless.directive';
+import { HighlightDirective } from '../directives/highlight.directive';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,7 +28,8 @@ const routes: Routes = [
     TodoListComponent,
     EditTodoDialogComponent,
     AddTodoComponent,
-    UnlessDirective
+    UnlessDirective,
+    HighlightDirective
   ],
   imports: [
     RouterModule.forChild(routes),
